@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+
+int max(int m,int n){
+    if(m>n)
+        return m;
+    else
+        return n;
+}
+
+int *addition(int A[], int B[],int m,int n){
+    int *sum;
+    int size= max(m,n);
+    sum=new int[size];
+    
+    for(int i=0;i<m;i++){
+        sum[i]=A[i];
+    }
+    for(int i=0;i<n;i++){
+        sum[i]+=B[i];
+    }
+    
+    return sum;
+}
+
+void printpoly(int poly[],int n){
+    for(int i=0;i<n;i++){
+        cout<<poly[i];
+        
+        if(i!=0)
+            cout<<"x^"<<i;
+        if(i!=n-1)
+            cout<<" + ";
+        
+    }
+}
+int main(){
+    int m,n;
+    cout<<"Enter the number of terms of first polynomial: "<<endl;
+    cin>>m;
+    int A[m];
+    
+    
+    cout<<"Enter the coefficients of first polynomial: "<<endl;
+    for(int i=0;i<m;i++){
+        cin>>A[i];
+    }
+    
+    cout<<"Enter the number of terms of second polynomial: "<<endl;
+    cin>>n;
+    int B[n];
+    
+    cout<<"Enter the coefficients of second polynomial: "<<endl;
+    for(int i=0;i<n;i++){
+        cin>>B[i];
+    }
+    
+    cout<<"First polynomial is: ";
+    printpoly(A,m);
+    
+    cout<<endl;
+    
+    cout<<"Second polynomial is: ";
+    printpoly(B,n);
+    cout<<endl;
+    
+    int *sum=addition(A,B,m,n);
+    int size=max(m,n);
+    
+    cout<<"Addition of two polynomials is: ";
+    printpoly(sum,size);
+    
+    cout<<endl;
+    
+    return 0;
+}
