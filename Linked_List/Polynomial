@@ -1,0 +1,64 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+class Node{
+public:
+    int coeff;
+    int exp;
+    Node *next;
+}*first=NULL;
+
+void create(){
+    Node *t,*last=NULL;
+    int num,i;
+    cout<<"Enter the number of terms: "<<endl;
+    cin>>num;
+    
+    cout<<"Enter the term with coeff and exponential: "<<endl;
+    for(i=0;i<num;i++){
+        t=new Node;
+        cin>>t->coeff>>t->exp;
+        t->next=NULL;
+        if(first==NULL){
+            first=last=t;
+        }
+        else{
+           last->next=t;
+           last=t;
+        }
+    }
+    
+}
+
+void display(Node *p){
+    while(p){
+        cout<<p->coeff<<"x^"<<p->exp<<" + ";
+        p=p->next;
+    }
+    cout<<endl;
+}
+
+long eval(Node *p, int x){
+    cout<<"Enter the value"<<endl;
+    cin>>x;
+    long val;
+    while(p){
+        val+= (p->coeff)*pow(x,p->exp);
+        p=p->next;
+    }
+    return val;
+}
+
+int main(){
+    int x;
+    create();
+    display(first);
+    
+    int res=eval(first,x);
+    cout<<"evaluation: "<<res<<endl;
+    
+    
+    
+    return 0;
+}
