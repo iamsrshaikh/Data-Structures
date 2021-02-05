@@ -1,0 +1,176 @@
+#include<iostream>
+using namespace std;
+
+class Queue{
+private:
+    int front;
+    int rear;
+    int size;
+    int *A;
+    
+public:
+    Queue(int size);
+    ~Queue();
+    int enqueue(int x);
+    int dequeue();
+    int isEmpty();
+    int isFull();
+    void display();
+    int count();
+
+};
+
+Queue::Queue(int size){
+    this->size=size;
+    A=new int[size];
+    front=-1;
+    rear=-1;
+    
+}
+
+Queue::~Queue(){
+    delete [] A;
+}
+
+int Queue::isEmpty(){
+    if(front==rear)
+        return 1;
+    else
+        return 0;
+}
+
+int Queue::isFull(){
+    if(rear==size-1)
+        return 1;
+    else
+        return 0;
+}
+
+int Queue::enqueue(int x){
+    if(isFull()){
+        cout<<"Queue is Full"<<endl;
+    }
+    else{
+        rear++;
+        A[rear]=x;
+    }
+}
+
+int Queue::count(){
+    int c=0;
+    int i;
+    for(i=front+1;i<=rear;i++){
+        c++;
+    }
+    return c;
+}
+
+int Queue::dequeue(){
+    int x=-1;
+    if(isEmpty()){
+        cout<<"Queue is Empty"<<endl;
+    }
+    else{
+        front++;
+        x=A[front];
+        
+    }
+    return x;
+}
+
+void Queue::display(){
+    int i;
+    if(isEmpty()){
+        cout<<"Nothing to display"<<endl;
+    }
+    else{
+        for(i=front+1;i<=rear;i++){
+            cout<<A[i]<<flush;
+            if(i<rear){
+                cout<<"->";
+            }
+            
+        }
+        cout<<endl;
+            
+        
+    }
+
+    
+}
+
+int main(){
+    int sz;
+    cout<<"Enter the size of Array: ";
+    cin>>sz;
+    Queue q(sz);
+    int ch;
+    int e,f,p;
+    
+    do{
+        cout<<"***************Operations**********************"<<endl;
+        cout<<"1. Enqueue"<<endl;
+        cout<<"2. Dequeue"<<endl;
+        cout<<"3. Is Empty"<<endl;
+        cout<<"4. Is Full"<<endl;
+        cout<<"5. Display"<<endl;
+        cout<<"6. Exit"<<endl;
+        
+        cout<<"Enter your choice: ";
+        cin>>ch;
+        
+        switch(ch){
+            case 1:
+            cout<<"Enter the element to insert: ";
+            cin>>p;
+            
+            q.enqueue(p);
+            
+            if(!q.isFull()){
+                cout<<p<<" inserted"<<endl;
+            }
+            
+            break;
+            
+            case 2:
+            cout<<"Element "<<q.dequeue()<<" removed"<<endl;
+            break;
+            
+            case 3:
+            e=q.isEmpty();
+            if(e==1)
+                cout<<"Queue is EMPTY!"<<endl;
+            else{
+                cout<<"Queue is NOT EMPTY"<<endl;
+                cout<<"There are "<<q.count()<<" elements present"<<endl;
+                
+            }
+            break;
+            
+            case 4:
+            f=q.isFull();
+            if(f==1){
+                cout<<"Queue is FULL!"<<endl;
+            }
+            else{
+                cout<<"Queue is NOT FULL"<<endl;
+            }
+            break;
+            
+            case 5:
+            cout<<"Queue Elements are: "<<endl;
+            q.display();
+            
+            case 6:
+            break;
+            
+            default:
+            cout<<"Pls Enter a Valid Choice"<<endl;
+                
+            
+            
+        }
+    }while(ch!=6);
+    
+    return 0;
+}
