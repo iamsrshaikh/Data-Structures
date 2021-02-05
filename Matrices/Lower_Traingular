@@ -1,0 +1,80 @@
+#include<iostream>
+
+using namespace std;
+
+int main(){
+    int *A;
+    int n,i,j,ch,x;
+    cout<<"Enter the dimension: "<<endl;
+    cin>>n;
+    
+    A=new int[n*(n+1)/2];
+    int ind= n*(n+1)/2;
+   
+    
+    do{
+        cout<<"*********************MENU*************************"<<endl;
+        cout<<"1. Create"<<endl;
+        cout<<"2. Get"<<endl;
+        cout<<"3. Set"<<endl;
+        cout<<"4. Display"<<endl;
+        cout<<"5. Exit"<<endl;
+        cout<<endl;
+        cout<<"Enter the choice: "<<endl;
+        cin>>ch;
+        switch(ch){
+            case 1:
+            cout<<"Enter the non-zero elements: "<<endl;
+            for(i=0;i<ind;i++){
+                cin>>A[i];
+            }
+            break;
+            
+            case 2:
+            cout<<"Enter the row and column: "<<endl;
+            cin>>i>>j;
+            cout<<"The element: "<<endl;
+            if(i>=j){
+                cout<<A[((i * (i - 1))/2) + j - 1]<<endl;
+            }
+            else
+                cout<<"0"<<endl;
+            break;
+            
+            
+            case 3:
+            cout<<"Enter the row,column and element: "<<endl;
+            cin>>i>>j>>x;
+            if(i>=j){
+                int index = ((i * (i - 1))/2) + j - 1;
+                A[index]=x;
+                }
+            break;
+            
+            case 4:
+            cout<<"The Lower Traingular Matrix: "<<endl;
+            for(i=1;i<=n;i++){
+                for(j=1;j<=n;j++){
+                    if(i>=j){
+                        
+                        cout<<A[((i * (i - 1))/2) + j - 1]<<" ";
+                    }
+                    else
+                        cout<<"0"<<" ";
+                }
+                cout<<endl;
+            }
+            break;
+            
+            case 5:
+            break;
+            
+            default:
+            cout<<"Please enter the valid choice"<<endl;
+            
+            
+        }
+    }while(ch!=5);
+    
+    return 0;
+}
