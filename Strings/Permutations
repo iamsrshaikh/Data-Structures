@@ -1,0 +1,56 @@
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+//s= starting index of string 
+//e=ending index of string
+int count=0;
+void swap(int x,int y){
+    int temp;
+    temp=x;
+    x=y;
+    y=temp;
+}
+void permute(string A, int s,int e){
+    
+    if(s==e){
+        cout<<A<<endl;
+        count++;
+    }
+    else{
+        for(int i=s;i<=e;i++){
+            swap(A[s],A[i]);
+            
+            
+            permute(A,s+1,e); //recursion
+            
+            
+            swap(A[s], A[i]); //backtrack
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+}
+int main(){
+    string str;
+    cout<<"Enter the string: "<<endl;
+    cin>>str;
+    int n=str.size();
+    
+    cout<<"Permutation are: "<<endl;
+    
+    permute(str,0,n-1);
+    cout<<"No of permutation: "<<count<<endl;
+    
+    
+
+    
+    return 0;
+}
