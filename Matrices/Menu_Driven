@@ -1,0 +1,69 @@
+#include<iostream>
+using namespace std;
+
+
+
+int main(){
+    int *A,n,ch,x;
+    int i,j;
+    cout<<"Enter the dimension: "<<endl;
+    cin>>n;
+    
+    A=new int[n];
+    do{
+        cout<<"**************MENU********************"<<endl;
+        cout<<"1. Create"<<endl;
+        cout<<"2. Get"<<endl;
+        cout<<"3. Set"<<endl;
+        cout<<"4. Display"<<endl;
+        cout<<"5. Exit"<<endl;
+        cout<<"Enter the choice: "<<endl;
+        cin>>ch;
+        switch(ch){
+            case 1:
+            cout<<"Enter the elements: "<<endl;
+            for(i=0;i<n;i++){
+                cin>>A[i];
+            }
+            break;
+            
+            case 2:
+            cout<<"Enter the rows and columns: "<<endl;
+            cin>>i>>j;
+            if(i==j)
+                cout<<A[i]<<endl;
+            else 
+                cout<<"0"<<endl;
+            break;
+            
+            case 3:
+            cout<<"Enter the row,column and element: "<<endl;
+            cin>>i>>j>>x;
+            if(i==j)
+                A[i]=x;
+                
+            break;
+            
+            case 4:
+            for(i=0;i<n;i++){
+                for(j=0;j<n;j++){
+                    if(i==j)
+                        cout<<A[i]<<" ";
+                    else
+                        cout<<"0"<<" ";
+                }
+                cout<<endl;
+            }
+            break;
+            
+            case 5:
+            break;
+            
+            default:
+            cout<<"Please Enter a valid choice"<<endl;
+            
+        }
+    }while(ch!=5);
+    
+    return 0;
+}
