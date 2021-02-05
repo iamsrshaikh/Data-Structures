@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="ArrayADT" Database="" Version="10000">
+  <Project Name="Demo" Path="Demo/Demo.project" Active="No"/>
+  <Project Name="LinearSearch" Path="LinearSearch/LinearSearch.project" Active="No"/>
+  <Project Name="BinarySearch" Path="BinarySearch/BinarySearch.project" Active="No"/>
+  <Project Name="BinaryIterative" Path="BinaryIterative/BinaryIterative.project" Active="No"/>
+  <Project Name="MenuDriven" Path="MenuDriven/MenuDriven.project" Active="No"/>
+  <Project Name="single_missing" Path="single_missing/single_missing.project" Active="No"/>
+  <Project Name="Multiple_missing" Path="Multiple_missing/Multiple_missing.project" Active="No"/>
+  <Project Name="Duplicates_sorted" Path="Duplicates_sorted/Duplicates_sorted.project" Active="No"/>
+  <Project Name="Duplicates_unsorted" Path="Duplicates_unsorted/Duplicates_unsorted.project" Active="No"/>
+  <Project Name="PairSumUnsorted" Path="PairSumUnsorted/PairSumUnsorted.project" Active="No"/>
+  <Project Name="MinMax" Path="MinMax/MinMax.project" Active="No"/>
+  <Project Name="PairSumSorted" Path="PairSumSorted/PairSumSorted.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="Demo" ConfigName="Debug"/>
+      <Project Name="LinearSearch" ConfigName="Debug"/>
+      <Project Name="BinarySearch" ConfigName="Debug"/>
+      <Project Name="BinaryIterative" ConfigName="Debug"/>
+      <Project Name="MenuDriven" ConfigName="Debug"/>
+      <Project Name="single_missing" ConfigName="Debug"/>
+      <Project Name="Multiple_missing" ConfigName="Debug"/>
+      <Project Name="Duplicates_sorted" ConfigName="Debug"/>
+      <Project Name="Duplicates_unsorted" ConfigName="Debug"/>
+      <Project Name="PairSumUnsorted" ConfigName="Debug"/>
+      <Project Name="MinMax" ConfigName="Debug"/>
+      <Project Name="PairSumSorted" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="Demo" ConfigName="Release"/>
+      <Project Name="LinearSearch" ConfigName="Release"/>
+      <Project Name="BinarySearch" ConfigName="Release"/>
+      <Project Name="BinaryIterative" ConfigName="Release"/>
+      <Project Name="MenuDriven" ConfigName="Release"/>
+      <Project Name="single_missing" ConfigName="Release"/>
+      <Project Name="Multiple_missing" ConfigName="Release"/>
+      <Project Name="Duplicates_sorted" ConfigName="Release"/>
+      <Project Name="Duplicates_unsorted" ConfigName="Release"/>
+      <Project Name="PairSumUnsorted" ConfigName="Release"/>
+      <Project Name="MinMax" ConfigName="Release"/>
+      <Project Name="PairSumSorted" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
