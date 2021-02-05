@@ -1,0 +1,175 @@
+#include<iostream>
+using namespace std;
+
+class CircularQueue{
+private:
+    int front;
+    int rear;
+    int size;
+    int *A;
+    
+public:
+    CircularQueue(int size);
+    ~CircularQueue();
+    int enqueue(int x);
+    int dequeue();
+    int isEmpty();
+    int isFull();
+    void display();
+    int count();
+
+};
+
+CircularQueue::CircularQueue(int size){
+    this->size=size;
+    A=new int[size];
+    front=0;
+    rear=0;
+    
+}
+
+CircularQueue::~CircularQueue(){
+    delete [] A;
+}
+
+int CircularQueue::isEmpty(){
+    if(front==rear)
+        return 1;
+    else
+        return 0;
+}
+
+int CircularQueue::isFull(){
+    if((rear+1)%size==front)
+        return 1;
+    else
+        return 0;
+}
+
+int CircularQueue::enqueue(int x){
+    if(isFull()){
+        cout<<"Queue is Full"<<endl;
+    }
+    else{
+        rear=(rear+1)%size;
+        A[rear]=x;
+    }
+}
+
+int CircularQueue::count(){
+    int c=0;
+    int i;
+    for(i=front+1;i<=rear;i++){
+        c++;
+    }
+    return c;
+}
+
+int CircularQueue::dequeue(){
+    int x=-1;
+    if(isEmpty()){
+        cout<<"Queue is Empty"<<endl;
+    }
+    else{
+        front=(front+1)%size;
+        x=A[front];
+        
+    }
+    return x;
+}
+
+void CircularQueue::display(){
+    int i=front+1;
+    if(isEmpty())
+        cout<<"Queue is Empty!"<<endl;
+    
+    do {
+        cout << A[i] << flush;
+        if (i!= (rear+1)%size) {
+            cout << " -> " << flush;
+        }
+        i = (i + 1) % size;
+    } while (i != (rear + 1) % size);
+    
+    cout<<endl;
+    
+}
+
+int main(){
+    int sz;
+    cout<<"Enter the size of Array: ";
+    cin>>sz;
+    CircularQueue q(sz);
+    int ch;
+    int e,f,p;
+    
+    do{
+        cout<<"***************Operations**********************"<<endl;
+        cout<<"1. Enqueue"<<endl;
+        cout<<"2. Dequeue"<<endl;
+        cout<<"3. Is Empty"<<endl;
+        cout<<"4. Is Full"<<endl;
+        cout<<"5. Display"<<endl;
+        cout<<"6. Exit"<<endl;
+        
+        cout<<"Enter your choice: ";
+        cin>>ch;
+        
+        switch(ch){
+            case 1:
+            cout<<"Enter the element to insert: ";
+            cin>>p;
+            
+            q.enqueue(p);
+            
+            if(!q.isFull()){
+                cout<<p<<" inserted"<<endl;
+            }
+            
+            break;
+            
+            case 2:
+            cout<<"Element "<<q.dequeue()<<" removed"<<endl;
+            break;
+            
+            case 3:
+            e=q.isEmpty();
+            if(e==1)
+                cout<<"Queue is EMPTY!"<<endl;
+            else{
+                cout<<"Queue is NOT EMPTY"<<endl;
+                cout<<"There are "<<q.count()<<" elements present"<<endl;
+                
+            }
+            break;
+            
+            case 4:
+            f=q.isFull();
+            if(f==1){
+                cout<<"Queue is FULL!"<<endl;
+            }
+            else{
+                cout<<"Queue is NOT FULL"<<endl;
+            }
+            break;
+            
+            case 5:
+            cout<<"Queue Elements are: "<<endl;
+            q.display();
+            
+            
+            break;
+            
+            case 6:
+            break;
+            
+            default:
+            cout<<"Pls Enter a Valid Choice"<<endl;
+                
+            
+            
+        }
+    }while(ch!=6);
+    
+    return 0;
+}
