@@ -1,0 +1,325 @@
+#include<iostream>
+
+using namespace std;
+
+class Node{
+public:
+    int data;
+    Node *next;
+}*last;
+
+class Circular_LL{
+public:
+    
+    void create_node(int value);
+    void add_begin(int value);
+    void add_after(int value, int position);
+    void delete_element(int value);
+    void search_element(int value);
+    void display_list();
+    void update();
+    void sort();
+    
+    Circular_LL(){
+        last=NULL;
+    
+    }
+};
+
+void Circular_LL::create_node(int value){
+    Node *temp;
+    temp=new Node;
+    temp->data=value;
+    if(last==NULL){
+        last=temp;
+        temp->next=last;
+    }
+    else{
+        temp->next=last->next;
+        last->next=temp;
+        last=temp;
+        
+    }
+}
+
+void Circular_LL::add_begin(int value){
+    if(last==NULL){
+        cout<<"First create Node!"<<endl;
+        
+    }
+    Node *temp;
+    temp=new Node;
+    temp->data=value;
+    temp->next=last->next;
+    last->next=temp;
+}
+
+void Circular_LL::add_after(int value,int pos){
+    if(last==NULL){
+        cout<<"First create Node!"<<endl;
+        
+    }
+    Node *temp,*p;
+    p=last->next;
+    int i;
+    for(i=0;i<pos-1;i++){
+        p=p->next;
+        if(p==last->next){
+            cout<<"There are less than "<<pos<<"elements in the list"<<endl;
+            return;
+        }
+        
+    }
+    temp=new Node;
+    temp->data=value;
+    temp->next=p->next;
+    p->next=temp;
+    
+    if(p==last){
+        last=temp;
+    }
+}
+
+void Circular_LL::delete_element(int value){
+    Node *p,*temp;
+    p=last->next;
+    
+    //if there is only one element
+    if(last->next==last && last->data==value){
+        temp=last;
+        last=NULL;
+        delete temp;
+        return;
+    }
+    
+    //deleting first element
+    
+    if(p->data==value){
+        temp=p;
+        last->next=p->next;
+        delete temp;
+        return;
+    }
+    
+    //deleting middle elements
+    
+    while(p->next!=NULL){
+        if(p->next->data==value){
+            temp=p->next;
+            p->next=temp->next;
+            delete temp;
+            cout<<"Element "<<value<<" deleted from the list"<<endl;
+            return;
+            
+        }
+        p=p->next;
+    }
+    
+    //deleting last element
+    
+    if(p->next->data==value){
+        temp=p->next;
+        p->next=last->next;
+        delete temp;
+        last=p;
+        return;
+    }
+    
+    cout<<"Element "<<value<<" not found in the list"<<endl;
+    
+    
+    
+    
+}
+
+
+void Circular_LL::display_list(){
+    Node *p;
+    if (last == NULL)
+    {
+        cout<<"List is empty, nothing to display"<<endl;
+        return;
+    }
+    p=last->next;
+    
+    cout<<"Circular Linked List: "<<endl;
+    while(p!=last){
+        cout<<p->data<<" ";
+        p=p->next;
+    }
+    
+    cout<<p->data<<endl;
+}
+
+void Circular_LL::search_element(int value)
+{
+    Node *s;
+    int counter = 0;
+    s = last->next;
+    while (s != last)
+    {
+        counter++;
+        if (s->data == value)    
+        {
+            cout<<"Element "<<value; 
+            cout<<" found at position "<<counter<<endl;
+            return;
+        }
+        s = s->next;
+    }
+    if (s->data == value)    
+    {
+        counter++;             
+        cout<<"Element "<<value;
+        cout<<" found at position "<<counter<<endl;
+        return;
+    }
+    cout<<"Element "<<value<<" not found in the list"<<endl;
+}
+
+void Circular_LL::update()
+{
+    int value, pos, i;
+    if (last == NULL)
+    {
+        cout<<"List is empty, nothing to update"<<endl;
+        return;
+    }
+    cout<<"Enter the node position to be updated: ";
+    cin>>pos;
+    cout<<"Enter the new value: ";
+    cin>>value;
+    Node *s;
+    s = last->next;
+    for (i = 0;i < pos - 1;i++)
+    {
+        if (s == last)
+        {
+            cout<<"There are less than "<<pos<<" elements.";
+            cout<<endl;
+            return;
+        }
+        s = s->next;
+    }
+    s->data = value;  
+    cout<<"Node Updated"<<endl;
+}
+
+void Circular_LL::sort()
+{
+    Node *s, *ptr;
+    int temp;
+    if (last == NULL) 
+    {
+        cout<<"List is empty, nothing to sort"<<endl;
+        return;
+    }
+    s = last->next;
+    while (s != last)
+    {
+        ptr = s->next;
+        while (ptr != last->next)
+        {
+            if (ptr != last->next)
+            {
+                if (s->data > ptr->data)
+                {
+                    temp = s->data;
+                    s->data = ptr->data;
+                    ptr->data = temp;
+                }
+            }
+            else
+            {
+                break;
+            }
+            ptr = ptr->next;    
+        }
+        s = s->next;         
+    }
+}
+
+int main(){
+    int choice,element,position;
+    Circular_LL cl;
+    while(1){
+        cout<<"**************************************************"<<endl;
+        cout<<"Circular Linked List"<<endl;
+        cout<<"****************************************************"<<endl;
+        cout<<"1.Create Node"<<endl;
+        cout<<"2.Add at beginning"<<endl;
+        cout<<"3.Add after"<<endl;
+        cout<<"4.Delete"<<endl;
+        cout<<"5.Search"<<endl;
+        cout<<"6.Display"<<endl;
+        cout<<"7.Update"<<endl;
+        cout<<"8.Sort"<<endl;
+        cout<<"9.Quit"<<endl;
+        
+        cout<<"Enter your choice : ";
+        cin>>choice;
+        switch(choice){
+            case 1:
+            cout<<"Enter the element: ";
+            cin>>element;
+            cl.create_node(element);
+            cout<<endl;
+            break;
+            
+            case 2:
+            cout<<"Enter the element: ";
+            cin>>element;
+            cl.add_begin(element);
+            cout<<endl;
+            break;
+        case 3:
+            cout<<"Enter the element: ";
+            cin>>element;
+            cout<<"Insert element after position: ";
+            cin>>position;
+            cl.add_after(element, position);
+            cout<<endl;
+            break;
+        case 4:
+            if (last == NULL)
+            {
+                cout<<"List is empty, nothing to delete"<<endl;
+                break;
+            }
+            cout<<"Enter the element for deletion: ";
+            cin>>element;
+            cl.delete_element(element);
+            cout<<endl;
+            break;
+        
+        
+        case 5:
+            if (last == NULL)
+            {
+                cout<<"List Empty!! Can't search"<<endl;
+                break;
+            }
+            cout<<"Enter the element to be searched: ";
+            cin>>element;
+            cl.search_element(element);
+            cout<<endl;
+            break;
+        case 6:
+            cl.display_list();
+            break;
+        case 7:
+            cl.update();
+            break;
+        case 8:
+            cl.sort();
+            break;                      
+        case 9:
+            exit(1);
+            break;
+        default:
+            cout<<"Wrong choice"<<endl;
+        }
+    }
+    
+    return 0;
+}
