@@ -1,0 +1,325 @@
+#include<iostream>
+
+using namespace std;
+
+class Node{
+public:
+    Node *rchild;
+    int data;
+    Node *lchild;
+
+    
+};
+
+class Queue{
+private:
+    int front;
+    int rear;
+    int size;
+    Node **A;
+    
+public:
+    Queue(int size);
+    ~Queue();
+    int enqueue(Node* x);
+    Node* dequeue();
+    void display();
+    bool isEmpty();
+    bool isFull();
+    
+};
+
+Queue::Queue(int size){
+    this->size=size;
+    A=new Node*[size];
+    front=-1;
+    rear=-1;
+    
+}
+
+
+Queue::~Queue(){
+    delete [] A;
+}
+
+bool Queue::isEmpty() {
+    if (front == rear){
+        return true;
+    }
+    return false;
+}
+ 
+bool Queue::isFull() {
+    if (rear == size-1){
+        return true;
+    }
+    return false;
+}
+
+
+int Queue::enqueue(Node *x){
+    if(isFull()){
+        cout<<"Queue is Full"<<endl;
+    }
+    else{
+        rear++;
+        A[rear]=x;
+    }
+}
+
+
+Node* Queue::dequeue(){
+    Node *x=NULL;
+    if(isEmpty()){
+        cout<<"Queue is Empty"<<endl;
+    }
+    else{
+        front++;
+        x=A[front];
+        
+    }
+    return x;
+}
+
+void Queue::display(){
+    int i;
+    if(isEmpty()){
+        cout<<"Nothing to display"<<endl;
+    }
+    else{
+        for(i=front+1;i<=rear;i++){
+            cout<<A[i]<<flush;
+            if(i<rear){
+                cout<<"->";
+            }
+            
+        }
+        cout<<endl;
+            
+        
+    }
+
+    
+}
+
+class Tree{
+public:
+    Node *root;
+    Tree(){
+        root=NULL;
+    }
+    void createTree();
+    void preorder(Node *p);
+    void inorder(Node *p);
+    void postorder(Node *p);
+    int Height(Node *p);
+    int count(Node *p);
+    void LevelOrder(Node *p);
+    int countleaf(Node *p);
+};
+
+void Tree::createTree(){
+    Node *p;
+    Node *t;
+    int x;
+    
+    Queue q(100);
+    
+    cout<<"Enter the root value: "<<endl;
+    cin>>x;
+    root=new Node;
+    root->data=x;
+    root->lchild=nullptr;
+    root->rchild=nullptr;
+    q.enqueue(root);
+    
+    while(!q.isEmpty()){
+        p=q.dequeue();
+        cout<<"Enter the left child of "<<p->data<<": ";
+        cin>>x;
+        
+        if(x!=-1){
+            t=new Node;
+            t->data=x;
+            t->lchild=nullptr;
+            t->rchild=nullptr;
+            p->lchild=t;
+            q.enqueue(t);
+        }
+        
+        cout<<"Enter the right child of "<<p->data<<": ";
+        cin>>x;
+        
+        if(x!=-1){
+            t=new Node;
+            t->data=x;
+            t->lchild=nullptr;
+            t->rchild=nullptr;
+            p->rchild=t;
+            q.enqueue(t);
+        }
+    }
+    
+}
+
+void Tree::preorder(Node *p){
+    if(p){
+        cout<<p->data<<","<<flush;
+        preorder(p->lchild);
+        preorder(p->rchild);
+    }
+}
+
+void Tree::inorder(Node *p){
+    if(p){
+        
+        inorder(p->lchild);
+        cout<<p->data<<","<<flush;
+        inorder(p->rchild);
+    }
+}
+
+void Tree::postorder(Node *p){
+    if(p){
+        postorder(p->lchild);
+        postorder(p->rchild);
+        cout<<p->data<<","<<flush;
+    }
+}
+
+int Tree::Height(Node *p){
+    int l=0;
+    int r=0;
+    
+    if(p==nullptr)
+        return 0;
+    l=Height(p->lchild);
+    r=Height(p->rchild);
+    if(l>r)
+        return l+1;
+    else
+        return r+1;
+}
+
+int Tree::count(Node *p){
+    int l=0;
+    int r=0;
+    if(p==nullptr)
+        return 0;
+    l=count(p->lchild);
+    r=count(p->rchild);
+    return l+r+1;
+    
+}
+
+void Tree::LevelOrder(Node *p){
+    Queue q(100);
+    cout<<root->data<<","<<flush;
+    q.enqueue(root);
+    
+    while(!q.isEmpty()){
+        p=q.dequeue();
+        if(p->lchild){
+            cout<<p->lchild->data<<","<<flush;
+            q.enqueue(p->lchild);
+        }
+        
+        if(p->rchild){
+            
+            cout<<p->rchild->data<<","<<flush;
+            q.enqueue(p->rchild);
+        }
+    }
+}
+
+int Tree::countleaf(Node *p){
+    int l=0;
+    int r=0;
+    if(p!=NULL){
+        l=count(p->lchild);
+        r=count(p->rchild);
+        if(p->lchild==NULL && p->rchild==NULL)
+            return l+r+1;
+        else
+            return l+r;
+    }
+    return 0;
+    
+}
+
+
+int main(){
+    Tree t;
+    int ch;
+    
+    cout<<"1. Create Tree"<<endl;
+    cout<<"2. Preorder"<<endl;
+    cout<<"3. Inorder"<<endl;
+    cout<<"4. Postorder"<<endl;
+    cout<<"5. Height"<<endl;
+    cout<<"6. No of Nodes"<<endl;
+    cout<<"7. No of Leaf Nodes"<<endl;
+    cout<<"8. LevelOrder"<<endl;
+    cout<<"9. Exit"<<endl;
+    
+    do{
+        cout<<"Enter the choice: "<<flush;
+        cin>>ch;
+        
+        switch(ch){
+            case 1:
+            t.createTree();
+            cout<<endl;
+            break;
+            
+            case 2:
+            cout<<endl;
+            cout<<"Preorder: "<<flush;
+            t.preorder(t.root);
+            cout<<endl;
+            break;
+            
+            case 3:
+            cout<<"Inorder: "<<flush;
+            t.inorder(t.root);
+            cout<<endl;
+            break;
+            
+            case 4:
+            cout<<"Postorder: "<<flush;
+            t.postorder(t.root);
+            cout<<endl;
+            break;
+            
+            case 5:
+            cout<<"Height: "<<endl;
+            cout<<t.Height(t.root)<<endl;
+            break;
+            
+            case 6:
+            cout<<"No of Nodes: "<<flush;
+            cout<<t.count(t.root)<<endl;
+            break;
+            
+            case 7:
+            cout<<"No of Leaf Nodes: "<<flush;
+            cout<<t.countleaf(t.root)<<endl;
+            break;
+            
+            case 8:
+            cout<<"LevelOrder: "<<flush;
+            t.LevelOrder(t.root);
+            cout<<endl;
+            break;
+            
+            case 9:
+            break;
+            
+            default:
+            cout<<"Pls! Enter a  valid choice"<<endl;
+            
+        }
+    }while(ch!=9);
+    
+    return 0;
+}
