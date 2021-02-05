@@ -1,0 +1,44 @@
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+
+
+int main(){
+    char s1[100];
+    int i,l,j;
+    cout<<"Enter the string: "<<endl;
+    cin>>s1;
+    for(l=0;s1[l]!='\0';l++){
+        
+    }
+    cout<<"length of string entered: "<<l<<endl;
+    
+    
+    
+    
+    char s2[l+1];
+    
+    for(i=0;s1[i]!='\0';i++)
+    {
+        
+    }
+    i=i-1;
+    for(j=0;i>=0;i--,j++){
+        s2[j]=s1[i];
+    }
+    s2[j]='\0';
+    cout<<"Reverse of string: "<<s2<<endl;
+    cout<<endl;
+    
+    if(strcmp(s1,s2)==0){
+        cout<<"String is Palindrome!"<<endl;
+    }
+    
+    else{
+        cout<<"String is a Not palindrome!"<<endl;
+    }
+    
+    return 0;
+    
+}
