@@ -1,0 +1,32 @@
+#include<iostream>
+
+using namespace std;
+
+int factorial(int n){
+    if(n==0){
+        return 1;
+    }
+    return factorial(n-1)*n;
+}
+
+int Ifac(int n){
+    int i;
+    int m=1;
+    for(i=1;i<=n;i++){
+        m=m*i;
+    }
+    return m;
+    
+}
+int main(){
+    int x;
+    cout<<"Enter the number: "<<endl;
+    cin>>x;
+    if(x<0){
+        cout<<"Enter number greater than zero"<<endl;
+    }
+    int r=factorial(x);
+//    int r=Ifac(x);
+    cout<<"factorial of number "<<x<<" is "<<r<<endl;
+    return 0;
+}
