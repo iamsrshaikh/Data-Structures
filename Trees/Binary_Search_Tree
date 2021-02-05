@@ -1,0 +1,300 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+public:
+    Node *lchild;
+    int data;
+    Node *rchild;
+};
+
+class BST{
+private:
+    Node *root;
+public:
+    BST(){ root = nullptr; }
+    Node* getRoot(){ return root; }
+    void iInsert(int key);
+    void Inorder(Node* p);
+    void Preorder(Node *p);
+    void Postorder(Node *p);
+    Node* iSearch(int key);
+    Node* rInsert(Node* p, int key);
+    Node* rSearch(Node* p, int key);
+    Node* Delete(Node* p, int key);
+    int Height(Node* p);
+    Node* InPre(Node* p);
+    Node* InSucc(Node* p);
+    
+    
+};
+
+void BST::iInsert(int key){
+    Node *r;
+    Node *t=root;
+    Node *p;
+    
+    if (root == nullptr){
+        p = new Node;
+        p->data = key;
+        p->lchild = nullptr;
+        p->rchild = nullptr;
+        root = p;
+        return;
+    }
+    
+    while(t != nullptr){
+        r = t;
+        if (key < t->data){
+            t = t->lchild;
+        } else if (key > t->data){
+            t = t->rchild;
+        } else {
+            return;
+        }
+    }
+    
+    p = new Node;
+    p->data = key;
+    p->lchild = nullptr;
+    p->rchild = nullptr;
+ 
+    if (key < r->data){
+        r->lchild = p;
+    } else {
+        r->rchild = p;
+    }    
+}
+
+void BST::Inorder(Node *p){
+    if(p){
+        Inorder(p->lchild);
+        cout<<p->data<<","<<flush;
+        Inorder(p->rchild);
+    }
+}
+
+void BST::Preorder(Node *p){
+    if(p){
+        cout<<p->data<<","<<flush;
+        Preorder(p->lchild);
+        Preorder(p->rchild);
+    }
+}
+
+void BST::Postorder(Node *p){
+    if(p){
+        Postorder(p->lchild);
+        Postorder(p->rchild);
+        cout<<p->data<<","<<flush;
+    }
+}
+
+
+Node *BST::iSearch(int key){
+    Node *t=root;
+    while(t!=nullptr){
+        if(key==t->data)
+            return t;
+        else if(key<t->data)
+            t=t->lchild;
+        else
+            t=t->rchild;
+    }
+    return nullptr;
+}
+
+Node* BST::rInsert(Node *p, int key) {
+    Node* t;
+    if (p == nullptr){
+        t = new Node;
+        t->data = key;
+        t->lchild = nullptr;
+        t->rchild = nullptr;
+        return t;
+    }
+ 
+    if (key < p->data){
+        p->lchild = rInsert(p->lchild, key);
+    } else if (key > p->data){
+        p->rchild = rInsert(p->rchild, key);
+    }
+    return p;  
+}
+
+Node *BST::rSearch(Node *p,int key){
+    if(p==nullptr)
+        return nullptr;
+    if(key==p->data)
+        return p;
+    else if(key<p->data)
+        return rSearch(p->lchild,key);
+    else
+        return rSearch(p->rchild,key);
+    
+}
+
+int BST::Height(Node *p) {
+    int x;
+    int y;
+    if (p == nullptr){
+        return 0;
+    }
+    x = Height(p->lchild);
+    y = Height(p->rchild);
+    return x > y ? x + 1 : y + 1;
+}
+
+Node *BST::InSucc(Node *p){
+    p=p->rchild;
+    while(p && p->lchild !=nullptr){
+        p=p->lchild;
+    }
+    return p;
+}
+
+Node *BST::InPre(Node *p){
+    p=p->lchild;
+    while(p && p->rchild !=nullptr){
+        p=p->rchild;
+    }
+    return p;
+}
+
+Node *BST::Delete(Node *p,int key){
+    Node *q;
+    if(p==nullptr)
+        return nullptr;
+    if(p->lchild==nullptr && p->rchild ==nullptr){
+        if(p==root){
+            root=nullptr;
+        }
+        delete p;
+        return nullptr;
+    }
+    
+    if(key<p->data){
+        p->lchild = Delete(p->lchild, key);
+    }
+    else if(key>p->data){
+        p->rchild=Delete(p->rchild,key);
+    }
+    else{
+        if (Height(p->lchild) > Height(p->rchild)){
+            q = InPre(p->lchild);
+            p->data = q->data;
+            p->lchild = Delete(p->lchild, q->data);
+        } else {
+            q = InSucc(p->rchild);
+            p->data = q->data;
+            p->rchild = Delete(p->rchild, q->data);
+        }
+    }
+    return p;
+    
+}
+
+
+
+
+
+
+int main(){
+    BST t;
+    int ch;
+    int ins;
+    int del;
+    int ser;
+    Node *temp;
+    Node *mp,*emp;
+    
+    cout<<"1. Insert"<<endl;
+    cout<<"2. Delete"<<endl;
+    cout<<"3. Inorder"<<endl;
+    cout<<"4. Postorder"<<endl;
+    cout<<"5. Preorder"<<endl;
+    cout<<"6. Height"<<endl;
+    cout<<"7. Search"<<endl;
+    cout<<"8. Inorder Sucessor"<<endl;
+    cout<<"9. Inorder Predecssor"<<endl;
+    cout<<"10. Exit"<<endl;
+    
+    do{
+        cout<<"Enter the choice: "<<flush;
+        cin>>ch;
+        
+        switch(ch){
+            case 1:
+            cout<<"Enter the key to insert: "<<flush;
+            cin>>ins;
+            t.iInsert(ins);
+            break;
+            
+            case 2:
+            cout<<"Enter the key to delete: "<<flush;
+            cin>>del;
+            t.Delete(t.getRoot(),del);
+            
+            
+            break;
+            
+            case 3:
+            cout<<"Inorder: "<<flush;
+            t.Inorder(t.getRoot());
+            cout<<endl;
+            break;
+            
+            case 4:
+            cout<<"Postorder: "<<flush;
+            t.Postorder(t.getRoot());
+            cout<<endl;
+            break;
+            
+            case 5:
+            cout<<"Preorder: "<<flush;
+            t.Preorder(t.getRoot());
+            cout<<endl;
+            break;
+            
+            case 6:
+            cout<<"Height: "<<endl;
+            cout<<t.Height(t.getRoot())<<endl;
+            break;
+            
+            case 7:
+            cout<<"Enter the key to search: "<<flush;
+            cin>>ser;
+            temp =t.rSearch(t.getRoot(),ser);
+            if (temp != nullptr)
+                cout << temp->data <<" is found"<< endl;
+            else 
+                cout << "Element not found" << endl;
+                
+            break;
+            
+            case 8:
+            cout<<"Inorder Successor: "<<flush;
+            mp=t.InSucc(t.getRoot());
+            cout<<mp->data<<endl;
+            break;
+            
+            case 9:
+            cout<<"Inorder Predecssor: "<<flush;
+            emp=t.InPre(t.getRoot());
+            cout<<emp->data<<endl;
+            break;
+            
+            
+            case 10:
+            break;
+            
+            default:
+            cout<<"Pls! Enter a  valid choice"<<endl;
+            
+        }
+    }while(ch!=10);
+    
+    return 0;
+}
+    
+    
