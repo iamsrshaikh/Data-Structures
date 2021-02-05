@@ -1,0 +1,108 @@
+#include<iostream>
+#include<string.h>
+
+using namespace std;
+class Node{
+    public:
+    string data;
+    Node *next;
+    
+};
+
+void addtolist(Node *first){
+    bool quit=false;
+    string temp;
+    
+    while(!quit){
+        cout<<"Enter the name to add: (quit to stop)"<<endl;
+        cin>>temp;
+        if(temp == "quit")
+            quit=true;
+        else{
+            Node *current=new Node;
+            current->data=temp;
+            current->next=first->next;
+            first->next=current;
+            
+        }
+    }
+    return;
+}
+
+void deleteFromlist(Node *first){
+    string deletion;
+    cout<<"Enter the string to delete: "<<endl;
+    cin>>deletion;
+    Node *prev=first;
+    Node *current=first->next;
+    
+    while(current){
+        if(current->data==deletion){
+            prev->next=current->next;
+            delete current;
+            return;
+        }
+        prev=current;
+        current=current->next;
+        
+    }
+    if(!current){
+        cout<<"The value is not there in the list"<<endl;
+    }
+    
+}
+
+void display(Node *first){
+    if(!first->next){
+        cout<<"There is nothing in the list"<<endl;
+        return;
+    }
+    Node *current;
+    current=first->next;
+    while(current){
+        cout<<current->data<<endl;
+        current=current->next;
+    }
+    
+    
+}
+
+int main(){
+    bool quit=false;
+    int choice;
+    Node *first=new Node;
+    first->next=NULL;
+    while(!quit){
+        cout<<"*****************MENU***********************"<<endl;
+        cout<<"1. Insert"<<endl;
+        cout<<"2. Delete"<<endl;
+        cout<<"3. Display"<<endl;
+        cout<<"4. Quit"<<endl;
+        
+        cout<<"Enter your choice: ";
+        cin>>choice;
+        
+        switch(choice){
+            case 1: addtolist(first);
+            break;
+            
+            case 2: deleteFromlist(first);
+            break;
+            
+            case 3: display(first);
+            break;
+            
+            case 4: quit= true;
+            break;
+            
+            default: 
+            cout<<"Invalid option!"<<endl;
+            quit= true;
+            
+            
+        }
+    }
+    
+    
+    return 0;
+}
