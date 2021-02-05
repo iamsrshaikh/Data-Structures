@@ -1,0 +1,28 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+void reverse(string &str){
+    int i,j,t;
+    for(i=0;str[i]!='\0';i++){
+        
+    }
+    i=i-1;
+    for(j=0;j<i;j++,i--){
+        t=str[j];
+        str[j]=str[i];
+        str[i]=t;
+    }
+    
+    cout<<"Reverse of string: "<<str<<endl;
+}
+
+int main(){
+    string str;
+    cout<<"Enter the string: "<<endl;
+    getline(cin,str);
+    reverse(str);
+    
+    return 0;
+}
