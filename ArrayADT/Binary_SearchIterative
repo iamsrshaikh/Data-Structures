@@ -1,0 +1,48 @@
+#include<iostream>
+
+using namespace std;
+
+int binarysearch(int A[],int l,int h,int key){
+    int mid;
+    while(l<=h){
+        mid=(l+h)/2;
+        if(key==A[mid])
+            return mid;
+        else if(key<A[mid])
+            h=mid-1;
+        else
+            l=mid+1;
+    }
+    return -1;
+}
+
+int main(){
+    int n,key,i;
+    cout<<"Enter array size:"<<endl;
+    cin>>n;
+    
+    int A[n];
+    cout<<"Enter Array Elements: "<<endl;
+    for(i=0;i<n;i++){
+        cin>>A[i];
+    }
+    
+    cout<<"Array Elements are: "<<endl;
+    for(i=0;i<n;i++){
+        cout<<A[i]<<" ";
+    }
+    cout<<endl;
+    
+    cout<<"Enter the element to search: "<<endl;
+    cin>>key;
+    
+    int index=binarysearch(A,0,n-1,key);
+    if(index==-1){
+        cout<<"Element is not present in the array"<<endl;
+    }
+    else{
+        cout<<"Element is present at "<<index+1<<"th position"<<endl;
+    }
+    
+    return 0;
+}
