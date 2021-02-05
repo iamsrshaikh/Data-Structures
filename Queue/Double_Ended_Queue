@@ -1,0 +1,193 @@
+#include<iostream>
+
+using namespace std;
+
+class DoubleEnded{
+private:
+    int front;
+    int rear;
+    int *A;
+    int size;
+public:
+    DoubleEnded(int size);
+    ~DoubleEnded();
+    void insert_front(int x);
+    void insert_rear(int x);
+    int delete_front();
+    int delete_rear();
+    void display();
+    int isFull();
+    int isEmpty();
+    
+};
+
+DoubleEnded::DoubleEnded(int size){
+    front=rear=-1;
+    this->size=size;
+    A=new int[size];
+}
+
+DoubleEnded::~DoubleEnded(){
+    delete [] A;
+}
+
+int DoubleEnded::isEmpty(){
+    if(front==rear)
+        return 1;
+    else
+        return 0;
+}
+
+int DoubleEnded::isFull(){
+    if(rear==size-1)
+        return 1;
+    else
+        return 0;
+}
+
+void DoubleEnded::insert_front(int x){
+    if(front==-1){
+        cout<<"You cannot insert from front!"<<endl;
+    }
+    else{
+        A[front]=x;
+        front--;
+    }
+    
+}
+
+void DoubleEnded::insert_rear(int x){
+    if(isFull())
+        cout<<"Queue is Full!"<<endl;
+    else{
+        rear++;
+        A[rear]=x;
+    }
+}
+
+int DoubleEnded::delete_front(){
+    int x=-1;
+    if(isEmpty())
+        cout<<"Queue is Empty!"<<endl;
+    else{
+        front++;
+        x=A[front];
+        
+    }
+    return x;
+}
+
+int DoubleEnded::delete_rear(){
+    int x=-1;
+    if(rear==-1)
+        cout<<"Queue is Empty!"<<endl;
+    else{
+        x=A[rear];
+        rear--;
+    }
+    return x;
+}
+
+void DoubleEnded::display(){
+    int i;
+    if(isEmpty())
+        cout<<"Queue is Empty! Nothing to display"<<endl;
+    else{
+        for(i=front+1;i<=rear;i++){
+            cout<<A[i]<<" ";
+        }
+        cout<<endl;
+        
+    }
+        
+}
+
+int main(){
+    
+    int sz;
+    int ch;
+    cout<<"Enter the size of Array"<<endl;
+    cin>>sz;
+    int x,f,e;
+    
+    DoubleEnded de(sz);
+    
+    cout<<"---------------OPERATIONS-------------------"<<endl;
+    cout<<"1. Insert at Front side"<<endl;
+    cout<<"2. Insert at Rear side"<<endl;
+    cout<<"3. Delete from Front side"<<endl;
+    cout<<"4. Delete from Rear side"<<endl;
+    cout<<"5. Is Full"<<endl;
+    cout<<"6. Is Empty"<<endl;
+    cout<<"7. Display"<<endl;
+    cout<<"8. Exit"<<endl;
+    
+    do{
+        cout<<"Enter your choice"<<endl;
+        cin>>ch;
+        
+        switch(ch){
+            case 1:
+            cout<<"Enter the element to insert: "<<endl;
+            cin>>x;
+            
+            de.insert_front(x);
+            
+            break;
+            
+            case 2:
+            cout<<"Enter the element to insert: "<<endl;
+            cin>>x;
+            
+            de.insert_rear(x);
+            
+            break;
+            
+            case 3:
+            
+            cout<<"Element "<<de.delete_front()<<" removed!"<<endl;
+            break;
+            
+            case 4:
+            cout<<"Element "<<de.delete_rear()<<" removed!"<<endl;
+            break;
+            
+            case 5:
+            f=de.isFull();
+            if(f==1){
+                cout<<"Queue is FULL!"<<endl;
+            }
+            else{
+                cout<<"Queue is NOT FULL"<<endl;
+            }
+            break;
+            
+            case 6:
+            e=de.isEmpty();
+            if(e==1)
+                cout<<"Queue is EMPTY!"<<endl;
+            else{
+                cout<<"Queue is NOT EMPTY"<<endl;
+                
+            }
+            break;
+            
+            case 7:
+            cout<<"Queue ELements: "<<endl;
+            de.display();
+            break;
+            
+            case 8:
+            break;
+            
+            default:
+            cout<<"Pls Enter a valid choice!"<<endl;
+    
+        }
+        
+        
+    }while(ch!=8);
+    
+    
+    return 0;
+}
