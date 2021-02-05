@@ -1,0 +1,51 @@
+#include<iostream>
+
+using namespace std;
+
+
+
+
+//recursive
+int binary(int A[],int l,int h,int key){
+    if (l <= h) {
+      int m = (l + h)/2;
+      if (A[m] == key)
+      return m ;
+      if (A[m] > key)
+      return binary(A, l, m-1, key);
+      if (A[m] > key)
+      return binary(A, m+1, h, key);
+   }
+   return -1;
+}
+
+int main(){
+    int n,key,i;
+    cout<<"Enter array size:"<<endl;
+    cin>>n;
+    
+    int A[n];
+    cout<<"Enter Array Elements: "<<endl;
+    for(i=0;i<n;i++){
+        cin>>A[i];
+    }
+    
+    cout<<"Array Elements are: "<<endl;
+    for(i=0;i<n;i++){
+        cout<<A[i]<<" ";
+    }
+    cout<<endl;
+    
+    cout<<"Enter the element to search: "<<endl;
+    cin>>key;
+    
+    int index=binary(A,0,n-1,key);
+    if(index==-1){
+        cout<<"Element is not present in the array"<<endl;
+    }
+    else{
+        cout<<"Element is present at "<<index+1<<"th position"<<endl;
+    }
+  
+    return 0;
+}
