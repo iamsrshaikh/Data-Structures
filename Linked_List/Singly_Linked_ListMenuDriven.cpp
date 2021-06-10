@@ -23,6 +23,10 @@ class SinglyLinked{
         void Insert(int index,int x);
         int Delete(int index);
         int Length();
+        void InsertinSorted(int x);
+        bool Issorted();
+        void RemovingDupicates();
+        void Reverse();
 };
 
 SinglyLinked::SinglyLinked(int A[],int n){
@@ -111,6 +115,66 @@ int SinglyLinked::Delete(int index){
     return x;
 }
 
+void SinglyLinked::InsertinSorted(int x){
+    Node *q=NULL;
+    Node *p=Head;
+    Node *t;
+    
+     while(p && p->data < x){
+                q=p;
+                p=p->next;
+            }
+    t=new Node;
+    t->data=x;
+    t->next=q->next;
+    q->next=t;
+}
+
+
+bool SinglyLinked::Issorted(){
+    int x=-32786;
+    
+    Node *p=Head;
+    while(p!=NULL){
+        if(p->data<x){
+            return false;
+        }
+        x=p->data;
+        p=p->next;
+    }
+    
+    return true;
+}
+
+void SinglyLinked::RemovingDupicates(){
+    Node *p=Head,*q=Head->next;
+    while(q!=NULL){
+        if(p->data!=q->data){
+            p=q;
+            q=q->next;
+        }
+        
+        else{
+            p->next=q->next;
+            delete q;
+            q=p->next;
+        }
+    }
+    
+}
+
+void SinglyLinked::Reverse(){
+    Node *q=NULL,*r=NULL;
+    Node *p=Head;
+    while(p!=NULL){
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    Head=q;
+}
+
 int main(){
     int n;
     cout<<"Enter the size: ";
@@ -122,14 +186,19 @@ int main(){
     }
     SinglyLinked L(A,n);
     int ch,len,x,index,res;
+    bool sort;
     do{
         
-        cout<<"***********Operation Available************"<<endl;
+        cout<<"***********Operation Available************"<<endl<<endl;
         cout<<"1. Display"<<endl;
         cout<<"2. Insert"<<endl;
         cout<<"3. Delete"<<endl;
         cout<<"4. Length"<<endl;
-        cout<<"5. Quit"<<endl;
+        cout<<"5. Insert in Sorted"<<endl;
+        cout<<"6. Is Sorted"<<endl;
+        cout<<"7. Remove Duplicates"<<endl;
+        cout<<"8. Reverse List"<<endl;
+        cout<<"9. Quit"<<endl;
         
         cout<<"Enter the choice: ";
         cin>>ch;
@@ -164,6 +233,33 @@ int main(){
             break;
             
             case 5:
+            cout<<"Enter the element to insert: ";
+            cin>>x;
+            L.InsertinSorted(x);
+            break;
+            
+            case 6:
+            sort=L.Issorted();
+            if(sort==true){
+                cout<<"List is sorted"<<endl;
+            }
+            else{
+                cout<<"List is Unsorted"<<endl;
+            }
+            
+            break;
+            
+            case 7:
+            L.RemovingDupicates();
+            cout<<"Duplicates Removed!"<<endl;
+            break;
+            
+            case 8:
+            L.Reverse();
+            cout<<"List Reversed"<<endl;
+            break;
+            
+            case 9:
             break;
             
             default:
@@ -171,7 +267,7 @@ int main(){
             break;
             
         }
-    }while(ch!=5);
+    }while(ch!=9);
     
     
 }
